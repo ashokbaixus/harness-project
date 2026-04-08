@@ -2,9 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
+  namespace: harness-delegate-ng
   labels:
     app: nginx
 spec:
+  serviceAccountName: harness-sa
   replicas: 3
   selector:
     matchLabels:
