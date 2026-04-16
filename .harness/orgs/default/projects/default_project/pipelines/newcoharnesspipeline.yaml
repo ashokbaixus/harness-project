@@ -33,6 +33,16 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: GitClone
+                  name: GitClone_1
+                  identifier: GitClone_1
+                  spec:
+                    connectorRef: ashokbaixus
+                    build:
+                      type: branch
+                      spec:
+                        branch: branch1
+              - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
                   identifier: BuildAndPushDockerRegistry_1
@@ -41,60 +51,5 @@ pipeline:
                     repo: ashokbaixus
                     tags:
                       - newco-nginx-img
-              - parallel:
-                  - step:
-                      type: Background
-                      name: dind
-                      identifier: dind
-                      spec:
-                        connectorRef: account.harnessImage
-                        image: docker:dind
-                        shell: Sh
-                  - step:
-                      type: AquaTrivy
-                      name: AquaTrivy_1
-                      identifier: AquaTrivy_1
-                      spec:
-                        target:
-                          detection: auto
-                          type: container
-                        advanced:
-                          log:
-                            level: info
-                          args: {}
-                        privileged: true
-                        mode: orchestration
-                        config: default
-                        image:
-                          type: docker_v2
-                          name: newco-nginx-img
-                          tag: latest
-                        resources:
-                          limits:
-                            memory: 2G
-                            cpu: 1000m
-                  - step:
-                      type: Grype
-                      name: Grype_1
-                      identifier: Grype_1
-                      spec:
-                        target:
-                          detection: auto
-                          type: container
-                        advanced:
-                          log:
-                            level: info
-                          args: {}
-                        privileged: true
-                        mode: orchestration
-                        config: default
-                        image:
-                          type: docker_v2
-                          name: newco-nginx-img
-                          tag: latest
-                        resources:
-                          limits:
-                            memory: 2G
-                            cpu: 1000m
           sharedPaths:
             - /var/run
