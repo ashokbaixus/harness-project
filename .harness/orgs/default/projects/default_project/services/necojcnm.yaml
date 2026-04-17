@@ -3,3 +3,23 @@ service:
   identifier: necojcnm
   orgIdentifier: default
   projectIdentifier: default_project
+  serviceDefinition:
+    spec:
+      manifests:
+        - manifest:
+            identifier: deployment
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: ashokbaixus
+                  gitFetchType: Branch
+                  paths:
+                    - https://github.com/ashokbaixus/harness-project.git
+                  branch: main
+              valuesPaths:
+                - https://github.com/ashokbaixus/harness-project/deployment.yaml
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+    type: Kubernetes
