@@ -28,16 +28,6 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
-                  spec:
-                    connectorRef: newcodockerhub
-                    image: ashokbaixus/ubuntu_apache2
-                    shell: Sh
-                    command: whoami
-                  description: test
-              - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
                   identifier: BuildAndPushDockerRegistry_1
