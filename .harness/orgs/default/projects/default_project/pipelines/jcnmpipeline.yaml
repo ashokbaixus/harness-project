@@ -4,11 +4,6 @@ pipeline:
   projectIdentifier: default_project
   orgIdentifier: default
   tags: {}
-  properties:
-    ci:
-      codebase:
-        connectorRef: ashokbaixus
-        build: <+input>
   stages:
     - stage:
         name: jcnm-stage
@@ -16,7 +11,7 @@ pipeline:
         description: ""
         type: CI
         spec:
-          cloneCodebase: true
+          cloneCodebase: false
           caching:
             enabled: true
             override: true
@@ -33,11 +28,21 @@ pipeline:
           execution:
             steps:
               - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    connectorRef: newcodockerhub
+                    image: ashokbaixus/ubuntu_apache2
+                    shell: Sh
+                    command: whoami
+                  description: test
+              - step:
                   type: BuildAndPushDockerRegistry
                   name: BuildAndPushDockerRegistry_1
                   identifier: BuildAndPushDockerRegistry_1
                   spec:
                     connectorRef: newcodockerhub
-                    repo: neco-img
+                    repo: ashokbaixus/ubuntu_apache2
                     tags:
-                      - neco-img
+                      - ubuntu_apache2
