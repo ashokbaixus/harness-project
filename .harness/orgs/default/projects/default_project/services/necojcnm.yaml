@@ -1,0 +1,5 @@
+service:
+  name: neco-jcnm
+  identifier: necojcnm
+  orgIdentifier: default
+  projectIdentifier: default_project
